@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Heart Disease Prediction</h1>
+        <form action="/predict" method="post">
+            <!-- Create input fields for each feature your model expects -->
+            <label for="age">Age:</label>
+            <input type="text" id="age" name="age" required><br>
+            
+            <label for="sex">Sex:</label>
+            <input type="text" id="sex" name="sex" required><br>
+            
+            <label for="cp">cp:</label>
+            <input type="text" id="cp" name="cp" required><br>
+
+            <label for="trestbps">trestbps:</label>
+            <input type="text" id="trestbps" name="trestbps" required><br>
+
+            <label for="chol">chol:</label>
+            <input type="text" id="chol" name="chol" required><br>
+
+            <label for="fbs">fbs:</label>
+            <input type="text" id="fbs" name="fbs" required><br>
+
+            <label for="restecg">restecg:</label>
+            <input type="text" id="restecg" name="restecg" required><br>
+
+            <label for="thalach">thalach:</label>
+            <input type="text" id="thalach" name="thalach" required><br>
+
+            <label for="exang">exang:</label>
+            <input type="text" id="exang" name="exang" required><br>
+
+            <label for="oldpeak">oldpeak:</label>
+            <input type="text" id="oldpeak" name="oldpeak" required><br>
+
+            <label for="slope">Slope:</label>
+            <input type="text" id="slope" name="slope" required><br>
+
+            <label for="ca">ca:</label>
+            <input type="text" id="ca" name="ca" required><br>
+
+            <label for="thal">thal:</label>
+            <input type="thal" id="thal" name="thal" required><br>
+            <!-- Add more input fields for other features here -->
+
+            <input type="submit" value="Predict">
+        </form>
+        <div id="result"></div>
+    </div>
+    <script>
+        document.querySelector('form').onsubmit = async function (e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+            const result = await response.json();
+            document.getElementById('result').textContent = 'Prediction: ' + result.prediction;
+        };
+    </script>
+</body>
+</html>
